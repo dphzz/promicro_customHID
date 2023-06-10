@@ -33,7 +33,7 @@ int HID_::getInterface(uint8_t* interfaceCount)
 		D_INTERFACE(pluggedInterface, 2, USB_DEVICE_CLASS_HUMAN_INTERFACE, HID_SUBCLASS_NONE, HID_PROTOCOL_NONE),
 		D_HIDREPORT(descriptorSize),
 		D_ENDPOINT(USB_ENDPOINT_IN(pluggedEndpoint), USB_ENDPOINT_TYPE_INTERRUPT, USB_EP_SIZE, 0x01),
-		D_ENDPOINT(USB_ENDPOINT_OUT(5), USB_ENDPOINT_TYPE_INTERRUPT, USB_EP_SIZE, 0x08),
+		D_ENDPOINT(USB_ENDPOINT_OUT(pluggedEndpoint + 1), USB_ENDPOINT_TYPE_INTERRUPT, USB_EP_SIZE, 0x08),
 	};
 	return USB_SendControl(0, &hidInterface, sizeof(hidInterface));
 }

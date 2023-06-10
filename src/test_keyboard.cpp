@@ -47,13 +47,14 @@ void loop() {
 
   }
 
-  if(HID().Receive_data(1, rx_buffer, 3)){
-    if ((uint8_t)rx_buffer[1] != 0x18 && (uint8_t)rx_buffer[1] != 0x1C && (uint8_t)rx_buffer[1] != 0x0C){  //Use a control byte to reject irrelevant data such as 0x18, 0x1C, 0x0C
-      tx_buffer[0] = (uint8_t)rx_buffer[1];
-      tx_buffer[1] = (uint8_t)rx_buffer[2];
+  // if(HID().Receive_data(1, rx_buffer, 3)){
+  //   if ((uint8_t)rx_buffer[1] != 0x18 && (uint8_t)rx_buffer[1] != 0x1C && (uint8_t)rx_buffer[1] != 0x0C){  //Use a control byte to reject irrelevant data such as 0x18, 0x1C, 0x0C
+  //     tx_buffer[0] = (uint8_t)rx_buffer[1];
+  //     tx_buffer[1] = (uint8_t)rx_buffer[2];
 
-    }
-  }
+  //   }
+  // }
+  tx_buffer[1] = 1;
   // for (int i = 1; i < 64; i++){
   //   tx_buffer[i-1] = rx_buffer[i]; //Return back the received data
   // }    
