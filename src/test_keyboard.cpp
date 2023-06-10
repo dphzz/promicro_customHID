@@ -36,6 +36,7 @@ void setup() {  // initialize the buttons' inputs:
   Keyboard.begin();
 }
 
+int last_increment = millis();
 int last_send_time = millis();
 int last_serial_time = millis();
 int last_read_time = millis();
@@ -47,13 +48,27 @@ void loop() {
 
   }
 
-  if(HID().Receive_data(1, rx_buffer, 3)){
-    if ((uint8_t)rx_buffer[1] != 0x18 && (uint8_t)rx_buffer[1] != 0x1C && (uint8_t)rx_buffer[1] != 0x0C){  //Use a control byte to reject irrelevant data such as 0x18, 0x1C, 0x0C
-      tx_buffer[0] = (uint8_t)rx_buffer[1];
-      tx_buffer[1] = (uint8_t)rx_buffer[2];
+  // if(HID().Receive_data(1, rx_buffer, 3)){
+  //   if ((uint8_t)rx_buffer[1] != 0x18 && (uint8_t)rx_buffer[1] != 0x1C && (uint8_t)rx_buffer[1] != 0x0C){  //Use a control byte to reject irrelevant data such as 0x18, 0x1C, 0x0C
+  //     tx_buffer[0] = (uint8_t)rx_buffer[1];
+  //     tx_buffer[1] = (uint8_t)rx_buffer[2];
 
+  //   }
+  // }
+
+  // tx_buffer[0] = (uint8_t)1;
+  tx_buffer[1] = (uint8_t)10;
+  tx_buffer[2] = (uint8_t)15;
+  
+  if (last_increment - millis() > 1000){
+    last_increment = millis();
+    tx_buffer[0] = tx_buffer[0] + (uint8_t)(1);
+    if (tx_buffer[0] > 255){
+      tx_buffer[0] = 0;
     }
   }
+  delay(1000);
+
   // for (int i = 1; i < 64; i++){
   //   tx_buffer[i-1] = rx_buffer[i]; //Return back the received data
   // }    
